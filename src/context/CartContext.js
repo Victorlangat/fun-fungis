@@ -29,7 +29,6 @@ export const CartProvider = ({ children }) => {
     localStorage.setItem('orders', JSON.stringify(orders))
   }, [orders])
 
-  // Add to cart
   const addToCart = (product, quantity = 1) => {
     setCart(prev => {
       const existing = prev.find(item => item.id === product.id)
@@ -44,12 +43,10 @@ export const CartProvider = ({ children }) => {
     })
   }
 
-  // Remove from cart
   const removeFromCart = (productId) => {
     setCart(prev => prev.filter(item => item.id !== productId))
   }
 
-  // Update quantity
   const updateQuantity = (productId, quantity) => {
     if (quantity <= 0) {
       removeFromCart(productId)
@@ -62,43 +59,35 @@ export const CartProvider = ({ children }) => {
     )
   }
 
-  // Clear cart
   const clearCart = () => {
     setCart([])
   }
 
-  // Get total items
   const getTotalItems = () => {
     return cart.reduce((total, item) => total + item.quantity, 0)
   }
 
-  // Get total price
   const getTotalPrice = () => {
     return cart.reduce((total, item) => total + item.price * item.quantity, 0)
   }
 
-  // Get subtotal
   const getSubtotal = () => {
     return getTotalPrice()
   }
 
-  // Get shipping (free over 2000)
   const getShipping = () => {
     const subtotal = getTotalPrice()
     return subtotal >= 2000 ? 0 : 200
   }
 
-  // Get tax (16% VAT in Kenya)
   const getTax = () => {
     return getTotalPrice() * 0.16
   }
 
-  // Get grand total
   const getGrandTotal = () => {
     return getTotalPrice() + getShipping() + getTax()
   }
 
-  // Place order
   const placeOrder = (orderData) => {
     const newOrder = {
       id: `ORD-${Date.now()}`,
@@ -118,12 +107,10 @@ export const CartProvider = ({ children }) => {
     return newOrder
   }
 
-  // Get order by ID
   const getOrder = (orderId) => {
     return orders.find(order => order.id === orderId)
   }
 
-  // Update order status (admin)
   const updateOrderStatus = (orderId, status) => {
     setOrders(prev =>
       prev.map(order =>
@@ -132,17 +119,14 @@ export const CartProvider = ({ children }) => {
     )
   }
 
-  // Get all orders
   const getAllOrders = () => {
     return orders
   }
 
-  // Get order count
   const getOrderCount = () => {
     return orders.length
   }
 
-  // Get total revenue
   const getTotalRevenue = () => {
     return orders.reduce((total, order) => total + order.total, 0)
   }
