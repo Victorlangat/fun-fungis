@@ -1,0 +1,533 @@
+﻿/* ============================================
+   NAVBAR - Premium Modern
+   ============================================ */
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 0.5rem 2rem;
+  transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  background: rgba(10, 10, 10, 0.3);
+  backdrop-filter: blur(12px) saturate(1.2);
+  -webkit-backdrop-filter: blur(12px) saturate(1.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.navbar-scrolled {
+  padding: 0 2rem;
+  background: rgba(10, 10, 10, 0.82);
+  backdrop-filter: blur(24px) saturate(1.4);
+  -webkit-backdrop-filter: blur(24px) saturate(1.4);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* ============================================
+   INNER CONTAINER
+   ============================================ */
+.navbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 80px;
+  max-width: 1200px;
+  margin: 0 auto;
+  transition: height 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.navbar-scrolled .navbar-inner {
+  height: 72px;
+}
+
+/* ============================================
+   LOGO
+   ============================================ */
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.navbar-logo:hover {
+  transform: scale(1.02);
+}
+
+/* Logo Image - Bigger & Round */
+.navbar-logo-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(255, 107, 0, 0.15), rgba(255, 23, 68, 0.1));
+  border: 2px solid rgba(255, 107, 0, 0.15);
+  position: relative;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.navbar-scrolled .navbar-logo-icon {
+  width: 50px;
+  height: 50px;
+}
+
+.navbar-logo:hover .navbar-logo-icon {
+  border-color: rgba(255, 107, 0, 0.3);
+  box-shadow: 0 0 30px rgba(255, 107, 0, 0.1);
+}
+
+.navbar-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.navbar-logo-icon-glow {
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FF6B00, #FF1744, #FFEA00);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: -1;
+}
+
+.navbar-logo:hover .navbar-logo-icon-glow {
+  opacity: 0.2;
+}
+
+/* ============================================
+   LOGO TEXT - Same Font, Bold Contrast
+   ============================================ */
+.navbar-logo-text-group {
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+}
+
+.navbar-logo-text {
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  display: flex;
+  align-items: center;
+  gap: 0.05rem;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.navbar-scrolled .navbar-logo-text {
+  font-size: 1.2rem;
+}
+
+/* Fun - Bolder */
+.logo-fun {
+  font-weight: 900;
+  color: #FF6B00;
+  transition: all 0.3s ease;
+  letter-spacing: -0.02em;
+}
+
+/* Fungi - Lighter */
+.logo-fungi {
+  font-weight: 400;
+  color: #FF1744;
+  transition: all 0.3s ease;
+  letter-spacing: 0.02em;
+}
+
+/* Hover Effects */
+.navbar-logo:hover .logo-fun {
+  color: #FFEA00;
+}
+
+.navbar-logo:hover .logo-fungi {
+  color: #FF6B00;
+}
+
+.navbar-logo-sub {
+  font-size: 0.55rem;
+  color: rgba(255, 255, 255, 0.25);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-top: -2px;
+  transition: all 0.3s ease;
+}
+
+/* ============================================
+   NAV LINKS
+   ============================================ */
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  transition: all 0.3s ease;
+}
+
+.navbar-link {
+  color: rgba(255, 255, 255, 0.5);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  position: relative;
+  padding: 0.3rem 0;
+  letter-spacing: 0.01em;
+}
+
+.navbar-link:hover {
+  color: white;
+}
+
+.navbar-link.active {
+  color: white;
+  font-weight: 600;
+}
+
+.navbar-link-underline {
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  width: 0%;
+  height: 2px;
+  background: linear-gradient(90deg, #FF6B00, #FF1744);
+  border-radius: 4px;
+  transform: translateX(-50%);
+  transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.navbar-link:hover .navbar-link-underline,
+.navbar-link.active .navbar-link-underline {
+  width: 100%;
+}
+
+/* ============================================
+   ACTIONS
+   ============================================ */
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.navbar-icon-btn {
+  padding: 0.5rem;
+  border-radius: 12px;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  position: relative;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar-icon-btn:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: white;
+}
+
+/* Cart Badge */
+.navbar-cart-badge {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  background: linear-gradient(135deg, #FF6B00, #FF1744);
+  border-radius: 50px;
+  font-size: 0.5rem;
+  font-weight: 700;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #0A0A0A;
+  box-shadow: 0 2px 12px rgba(255, 107, 0, 0.3);
+}
+
+/* User Avatar */
+.navbar-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(255, 107, 0, 0.15), rgba(255, 23, 68, 0.15));
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.navbar-avatar:hover {
+  border-color: rgba(255, 107, 0, 0.2);
+  background: linear-gradient(135deg, rgba(255, 107, 0, 0.2), rgba(255, 23, 68, 0.2));
+  color: white;
+  box-shadow: 0 4px 20px rgba(255, 107, 0, 0.1);
+}
+
+/* ============================================
+   USER DROPDOWN
+   ============================================ */
+.navbar-dropdown {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  width: 220px;
+  background: rgba(10, 10, 10, 0.92);
+  backdrop-filter: blur(24px) saturate(1.4);
+  -webkit-backdrop-filter: blur(24px) saturate(1.4);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  padding: 0.5rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  animation: dropdownFade 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.navbar-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: 10px;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  font-size: 0.85rem;
+  background: transparent;
+  border: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+}
+
+.navbar-dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: white;
+}
+
+.navbar-dropdown-item.danger {
+  color: #FF1744;
+}
+
+.navbar-dropdown-item.danger:hover {
+  background: rgba(255, 23, 68, 0.08);
+}
+
+.navbar-dropdown-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.05);
+  margin: 0.25rem 0.5rem;
+}
+
+/* ============================================
+   MOBILE TOGGLE
+   ============================================ */
+.navbar-mobile-toggle {
+  display: none;
+  padding: 0.5rem;
+  border-radius: 12px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 42px;
+  height: 42px;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar-mobile-toggle:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* ============================================
+   MOBILE MENU
+   ============================================ */
+.navbar-mobile-menu {
+  display: none;
+  background: rgba(10, 10, 10, 0.95);
+  backdrop-filter: blur(24px) saturate(1.4);
+  -webkit-backdrop-filter: blur(24px) saturate(1.4);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 0.5rem 0 1rem;
+  border-radius: 0 0 16px 16px;
+  animation: dropdownFade 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.navbar-mobile-link {
+  display: block;
+  padding: 0.75rem 1rem;
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  font-weight: 500;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  margin: 0.25rem 0;
+}
+
+.navbar-mobile-link:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: white;
+}
+
+.navbar-mobile-link.active {
+  color: white;
+  background: rgba(255, 107, 0, 0.08);
+  font-weight: 600;
+}
+
+.navbar-mobile-auth {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.75rem 0.5rem 0;
+}
+
+.navbar-mobile-auth .btn-primary {
+  width: 100%;
+  justify-content: center;
+  padding: 0.7rem;
+  font-size: 0.875rem;
+}
+
+.navbar-mobile-auth .btn-secondary {
+  width: 100%;
+  justify-content: center;
+  padding: 0.7rem;
+  font-size: 0.875rem;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+@keyframes dropdownFade {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 1024px) {
+  .navbar {
+    padding: 0 1.5rem;
+  }
+  .navbar-scrolled {
+    padding: 0 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0 1rem;
+  }
+  .navbar-scrolled {
+    padding: 0 1rem;
+  }
+  
+  .navbar-links {
+    display: none;
+  }
+  
+  .navbar-mobile-toggle {
+    display: flex;
+  }
+  
+  .navbar-mobile-menu {
+    display: block;
+  }
+  
+  .navbar-inner {
+    height: 68px;
+  }
+  
+  .navbar-scrolled .navbar-inner {
+    height: 64px;
+  }
+  
+  .navbar-logo-icon {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .navbar-scrolled .navbar-logo-icon {
+    width: 42px;
+    height: 42px;
+  }
+  
+  .navbar-logo-text {
+    font-size: 1.2rem;
+  }
+  
+  .navbar-scrolled .navbar-logo-text {
+    font-size: 1rem;
+  }
+  
+  .navbar-logo-sub {
+    font-size: 0.5rem;
+  }
+  
+  .navbar-avatar {
+    width: 34px;
+    height: 34px;
+  }
+  
+  .navbar-icon-btn {
+    width: 38px;
+    height: 38px;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar-logo-icon {
+    width: 42px;
+    height: 42px;
+  }
+  
+  .navbar-scrolled .navbar-logo-icon {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .navbar-logo-text {
+    font-size: 1rem;
+  }
+  
+  .navbar-scrolled .navbar-logo-text {
+    font-size: 0.85rem;
+  }
+  
+  .navbar-logo-sub {
+    display: none;
+  }
+}
