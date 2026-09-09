@@ -6,7 +6,7 @@ import '../../styles/footer.css'
 
 const Footer = () => {
   const currentYear = new Date().getFullYear()
-  const { user, isAdmin } = useAuth()
+  const { isAdmin } = useAuth() // Remove 'user' since it's not used
 
   const footerSections = [
     {

@@ -12,12 +12,10 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(() => {
-    // Check if user data exists in localStorage on initial load
     const savedUser = localStorage.getItem('user')
     return savedUser ? JSON.parse(savedUser) : null
   })
 
-  // Save user to localStorage whenever it changes
   useEffect(() => {
     if (user) {
       localStorage.setItem('user', JSON.stringify(user))
@@ -27,10 +25,7 @@ export const AuthProvider = ({ children }) => {
   }, [user])
 
   const login = (email, password) => {
-    // Check if user is admin based on email
     const isAdmin = email === 'admin@funfungi.co.ke' || email === 'admin@kioski.co.ke'
-    
-    // For demo, also allow any email with password 'admin' to be admin
     const isAdminByPassword = password === 'admin' || password === 'admin123'
     
     const mockUser = {

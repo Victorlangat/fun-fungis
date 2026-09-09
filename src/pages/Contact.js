@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { Mail, Phone, MapPin, Clock, Send, Sparkles, ArrowRight, MessageSquare } from 'lucide-react'
+import { Mail, Phone, MapPin, Clock, Send, MessageSquare } from 'lucide-react'
 import '../styles/contact.css'
 
 const Contact = () => {
@@ -63,10 +62,8 @@ const Contact = () => {
   return (
     <div className="contact-page">
       <div className="container">
-        {/* Header - Matching Home/Shop */}
         <div className="contact-header">
           <div className="contact-header-badge">
-            <Sparkles size={14} color="#FF6B00" />
             <span>GET IN TOUCH</span>
           </div>
           <h1 className="contact-title" style={{ color: '#FF6B00' }}>Let's Connect</h1>
@@ -76,9 +73,7 @@ const Contact = () => {
           </p>
         </div>
 
-        {/* Contact Grid */}
         <div className="contact-grid">
-          {/* Info Cards */}
           <div className="contact-info-list">
             {contactInfo.map((info, index) => {
               const IconComponent = info.icon
@@ -101,7 +96,6 @@ const Contact = () => {
             })}
           </div>
 
-          {/* Contact Form */}
           <div className="contact-form-wrapper">
             <div className="contact-form-card">
               <div className="contact-form-header">
@@ -180,7 +174,6 @@ const Contact = () => {
           </div>
         </div>
 
-        {/* CTA Section - Matching Home/Shop */}
         <div className="contact-cta-section">
           <div className="contact-cta-content">
             <h2 style={{ color: '#FF6B00' }}>Prefer to Reach Out Directly?</h2>

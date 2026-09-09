@@ -9,8 +9,7 @@ import {
   CreditCard,
   Truck,
   Shield,
-  CheckCircle,
-  XCircle
+  CheckCircle
 } from 'lucide-react'
 import { useCart } from '../context/CartContext'
 import { useAuth } from '../context/AuthContext'
