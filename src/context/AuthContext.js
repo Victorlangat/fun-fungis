@@ -1,4 +1,13 @@
-﻿import React, { createContext, useContext, useState, useEffect } from 'react'
+﻿// src/context/AuthContext.js
+import React, { createContext, useContext, useState, useEffect } from 'react'
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
+  updateProfile
+} from 'firebase/auth'
+import { auth } from '../firebase'
 
 const AuthContext = createContext()
 
@@ -11,47 +20,47 @@ export const useAuth = () => {
 }
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(() => {
-    const savedUser = localStorage.getItem('user')
-    return savedUser ? JSON.parse(savedUser) : null
-  })
+  const [user, setUser] = useState(null)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    if (user) {
-      localStorage.setItem('user', JSON.stringify(user))
-    } else {
-      localStorage.removeItem('user')
-    }
-  }, [user])
+    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+      if (firebaseUser) {
+        const adminEmails = [
+          'victorjameskibet09@gmail.com',
+          'admin@funfungi.co.ke',
+          'admin@kioski.co.ke'
+        ]
+        const isAdminUser = adminEmails.includes(firebaseUser.email)
 
-  const login = (email, password) => {
-    const isAdmin = email === 'admin@funfungi.co.ke' || email === 'admin@kioski.co.ke'
-    const isAdminByPassword = password === 'admin' || password === 'admin123'
-    
-    const mockUser = {
-      id: isAdmin || isAdminByPassword ? '999' : '1',
-      email,
-      name: isAdmin || isAdminByPassword ? 'Admin User' : 'John Doe',
-      role: isAdmin || isAdminByPassword ? 'admin' : 'customer',
-    }
-    setUser(mockUser)
-    return mockUser
+        setUser({
+          id: firebaseUser.uid,
+          email: firebaseUser.email,
+          name: firebaseUser.displayName || firebaseUser.email.split('@')[0],
+          role: isAdminUser ? 'admin' : 'customer'
+        })
+      } else {
+        setUser(null)
+      }
+      setLoading(false)
+    })
+
+    return () => unsubscribe()
+  }, [])
+
+  const login = async (email, password) => {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password)
+    return userCredential.user
   }
 
-  const register = (name, email, password) => {
-    const mockUser = {
-      id: '1',
-      email,
-      name,
-      role: 'customer',
-    }
-    setUser(mockUser)
-    return mockUser
+  const register = async (name, email, password) => {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password)
+    await updateProfile(userCredential.user, { displayName: name })
+    return userCredential.user
   }
 
-  const logout = () => {
-    setUser(null)
-    localStorage.removeItem('user')
+  const logout = async () => {
+    await signOut(auth)
   }
 
   const isAdmin = () => {
@@ -62,6 +71,7 @@ export const AuthProvider = ({ children }) => {
     <AuthContext.Provider
       value={{
         user,
+        loading,
         login,
         register,
         logout,

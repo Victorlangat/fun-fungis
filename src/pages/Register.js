@@ -35,7 +35,27 @@ const Register = () => {
       await register(name, email, password)
       navigate('/')
     } catch (err) {
-      setError('Registration failed. Please try again.')
+      console.error('Register error:', err.code, err.message)
+
+      switch (err.code) {
+        case 'auth/email-already-in-use':
+          setError('This email is already registered. Try signing in.')
+          break
+        case 'auth/invalid-email':
+          setError('Invalid email address')
+          break
+        case 'auth/weak-password':
+          setError('Password is too weak. Use 6+ characters.')
+          break
+        case 'auth/operation-not-allowed':
+          setError('Email/password sign-up is not enabled')
+          break
+        case 'auth/network-request-failed':
+          setError('Network error. Check your connection.')
+          break
+        default:
+          setError('Registration failed. Please try again.')
+      }
     } finally {
       setIsLoading(false)
     }
@@ -61,7 +81,7 @@ const Register = () => {
                   <Candy size={28} />
                 </div>
                 <div>
-                  <span className="login-logo-text gradient-text">Kioski</span>
+                  <span className="login-logo-text" style={{ color: '#FF6B00' }}>FunFungi</span>
                   <span className="login-logo-sub">Sweet Chaos. Delivered.</span>
                 </div>
               </div>
@@ -148,8 +168,8 @@ const Register = () => {
                 <div className="login-error">{error}</div>
               )}
 
-              <button 
-                type="submit" 
+              <button
+                type="submit"
                 className="login-submit-btn"
                 disabled={isLoading}
               >

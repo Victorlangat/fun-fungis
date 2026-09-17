@@ -509,3 +509,95 @@
 .footer-system-link:hover svg {
   opacity: 1;
 }
+
+/* Mobile Footer Fixes */
+@media (max-width: 768px) {
+  .footer {
+    padding: 2.5rem 1rem 1.5rem;
+  }
+  
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .footer-brand-icon {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .footer-brand-text {
+    font-size: 1.1rem;
+  }
+  
+  .footer-description {
+    max-width: 100%;
+    font-size: 0.85rem;
+  }
+  
+  .footer-social-link {
+    width: 44px;
+    height: 44px;
+  }
+  
+  .footer-links-title {
+    font-size: 0.9rem;
+  }
+  
+  .footer-links-list a {
+    font-size: 0.85rem;
+    padding: 0.4rem 0;
+    min-height: 36px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+    padding-top: 1.5rem;
+  }
+  
+  .footer-bottom-left {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .footer-bottom-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  
+  .footer-bottom-info {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+  }
+  
+  .footer-bottom-info span {
+    font-size: 0.8rem;
+  }
+  
+  .footer-made-with {
+    font-size: 0.8rem;
+  }
+  
+  .footer-system-link {
+    font-size: 0.7rem;
+    min-height: 40px;
+    padding: 0.5rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-bottom-divider {
+    display: none;
+  }
+  
+  .footer-bottom-links {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+}

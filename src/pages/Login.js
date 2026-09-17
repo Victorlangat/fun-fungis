@@ -22,7 +22,33 @@ const Login = () => {
       await login(email, password)
       navigate('/')
     } catch (err) {
-      setError('Invalid email or password')
+      console.error('Login error:', err.code, err.message)
+
+      switch (err.code) {
+        case 'auth/user-not-found':
+          setError('No account found with this email')
+          break
+        case 'auth/wrong-password':
+          setError('Incorrect password. Try again.')
+          break
+        case 'auth/invalid-email':
+          setError('Invalid email address')
+          break
+        case 'auth/invalid-credential':
+          setError('Invalid email or password')
+          break
+        case 'auth/too-many-requests':
+          setError('Too many failed attempts. Try again later.')
+          break
+        case 'auth/user-disabled':
+          setError('This account has been disabled')
+          break
+        case 'auth/network-request-failed':
+          setError('Network error. Check your connection.')
+          break
+        default:
+          setError('Login failed. Please try again.')
+      }
     } finally {
       setIsLoading(false)
     }
@@ -30,28 +56,25 @@ const Login = () => {
 
   return (
     <div className="login-page">
-      {/* Background Effects */}
       <div className="login-bg-gradient" />
       <div className="login-bg-orb-1" />
       <div className="login-bg-orb-2" />
 
       <div className="container login-container">
         <div className="login-card-wrapper">
-          {/* Back Button */}
           <Link to="/" className="login-back">
             <ArrowRight size={18} />
             Back to Home
           </Link>
 
           <div className="login-card">
-            {/* Header */}
             <div className="login-header">
               <div className="login-logo">
                 <div className="login-logo-icon">
                   <Candy size={28} />
                 </div>
                 <div>
-                  <span className="login-logo-text gradient-text">Kioski</span>
+                  <span className="login-logo-text" style={{ color: '#FF6B00' }}>FunFungi</span>
                   <span className="login-logo-sub">Sweet Chaos. Delivered.</span>
                 </div>
               </div>
@@ -66,7 +89,6 @@ const Login = () => {
               </div>
             </div>
 
-            {/* Form */}
             <form onSubmit={handleSubmit} className="login-form">
               <div className="login-form-group">
                 <label>Email Address</label>
@@ -119,8 +141,8 @@ const Login = () => {
                 <div className="login-error">{error}</div>
               )}
 
-              <button 
-                type="submit" 
+              <button
+                type="submit"
                 className="login-submit-btn"
                 disabled={isLoading}
               >

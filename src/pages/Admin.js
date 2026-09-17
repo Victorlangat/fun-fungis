@@ -1,49 +1,110 @@
-import React from 'react'
-import { LayoutDashboard, ShoppingBag, Package, Mail } from 'lucide-react'
+// src/pages/Admin.js
+import React, { useState, useEffect } from 'react'
+import { Navigate, useSearchParams } from 'react-router-dom'
+import { motion, AnimatePresence } from 'framer-motion'
+import {
+  LayoutDashboard,
+  ShoppingBag,
+  Package,
+  Mail
+} from 'lucide-react'
+import { useAuth } from '../context/AuthContext'
+import AdminDashboard from '../components/admin/AdminDashboard'
+import OrderManagement from '../components/admin/OrderManagement'
+import CatalogManagement from '../components/admin/CatalogManagement'
+import MessageManagement from '../components/admin/MessageManagement'
+import '../styles/admin.css'
 
 const Admin = () => {
-  const stats = [
-    { title: 'Total Orders', value: '156', icon: ShoppingBag, color: 'rgba(255,107,0,0.15)' },
-    { title: 'Revenue', value: 'KES 245,000', icon: LayoutDashboard, color: 'rgba(0,230,118,0.15)' },
-    { title: 'Products', value: '8', icon: Package, color: 'rgba(255,23,68,0.15)' },
-    { title: 'Messages', value: '12', icon: Mail, color: 'rgba(255,234,0,0.15)' },
+  const { user, isAdmin, loading } = useAuth()
+  const [searchParams, setSearchParams] = useSearchParams()
+  const [activeTab, setActiveTab] = useState(searchParams.get('tab') || 'dashboard')
+
+  // Sync tab with URL
+  useEffect(() => {
+    const tab = searchParams.get('tab')
+    if (tab && tab !== activeTab) {
+      setActiveTab(tab)
+    }
+  }, [searchParams])
+
+  const handleTabChange = (tabId) => {
+    setActiveTab(tabId)
+    setSearchParams({ tab: tabId })
+  }
+
+  // Loading state
+  if (loading) {
+    return (
+      <div className="admin-page">
+        <div className="container">
+          <div className="admin-loading">
+            <div className="admin-spinner" />
+            <p>Checking access...</p>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  // Protect route
+  if (!user || !isAdmin()) {
+    return <Navigate to="/" replace />
+  }
+
+  const tabs = [
+    { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
+    { id: 'orders', label: 'Orders', icon: ShoppingBag },
+    { id: 'catalog', label: 'Catalog', icon: Package },
+    { id: 'messages', label: 'Messages', icon: Mail }
   ]
 
+  const renderContent = () => {
+    switch (activeTab) {
+      case 'orders':
+        return <OrderManagement />
+      case 'catalog':
+        return <CatalogManagement />
+      case 'messages':
+        return <MessageManagement />
+      default:
+        return <AdminDashboard />
+    }
+  }
+
   return (
-    <div className="shop-page">
+    <div className="admin-page">
       <div className="container">
-        <div className="admin-header">
-          <h1 className="gradient-text">Admin Dashboard</h1>
-          <p>Manage your store</p>
+        {/* Tabs */}
+        <div className="admin-tabs">
+          {tabs.map((tab) => {
+            const Icon = tab.icon
+            const isActive = activeTab === tab.id
+            return (
+              <button
+                key={tab.id}
+                className={`admin-tab ${isActive ? 'active' : ''}`}
+                onClick={() => handleTabChange(tab.id)}
+              >
+                <Icon size={16} />
+                <span>{tab.label}</span>
+              </button>
+            )
+          })}
         </div>
 
-        <div className="admin-stats">
-          {stats.map((stat) => (
-            <div key={stat.title} className="admin-stat-card">
-              <div className="admin-stat-icon" style={{ background: stat.color }}>
-                <stat.icon size={24} />
-              </div>
-              <div className="admin-stat-title">{stat.title}</div>
-              <div className="admin-stat-value">{stat.value}</div>
-            </div>
-          ))}
-        </div>
-
-        <div className="admin-recent-orders">
-          <h2>Recent Orders</h2>
-          {[1, 2, 3].map((order) => (
-            <div key={order} className="admin-order-item">
-              <div className="admin-order-info">
-                <p>Order #{order}</p>
-                <p>Customer Name</p>
-              </div>
-              <div className="admin-order-meta">
-                <span className="admin-order-amount">KES 450</span>
-                <span className="admin-order-status">Completed</span>
-              </div>
-            </div>
-          ))}
-        </div>
+        {/* Content */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeTab}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+          >
+            {renderContent()}
+          </motion.div>
+        </AnimatePresence>
       </div>
     </div>
   )

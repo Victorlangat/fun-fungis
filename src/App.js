@@ -11,6 +11,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Admin from './pages/Admin'
 import Contact from './pages/Contact'
+import Orders from './pages/Orders'
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
               <Route path="shop" element={<Shop />} />
               <Route path="product/:id" element={<ProductPage />} />
               <Route path="cart" element={<Cart />} />
+              <Route path="orders" element={<Orders />} />
               <Route path="login" element={<Login />} />
               <Route path="register" element={<Register />} />
               <Route path="admin" element={<Admin />} />
