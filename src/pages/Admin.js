@@ -1,7 +1,6 @@
 // src/pages/Admin.js
 import React, { useState, useEffect } from 'react'
 import { Navigate, useSearchParams } from 'react-router-dom'
-import { motion, AnimatePresence } from 'framer-motion'
 import {
   LayoutDashboard,
   ShoppingBag,
@@ -26,6 +25,7 @@ const Admin = () => {
     if (tab && tab !== activeTab) {
       setActiveTab(tab)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams])
 
   const handleTabChange = (tabId) => {
@@ -94,17 +94,9 @@ const Admin = () => {
         </div>
 
         {/* Content */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeTab}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.2 }}
-          >
-            {renderContent()}
-          </motion.div>
-        </AnimatePresence>
+        <div key={activeTab} className="admin-tab-content">
+          {renderContent()}
+        </div>
       </div>
     </div>
   )
