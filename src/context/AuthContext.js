@@ -1,4 +1,4 @@
-﻿// src/context/AuthContext.js
+// src/context/AuthContext.js
 import React, { createContext, useContext, useState, useEffect } from 'react'
 import {
   createUserWithEmailAndPassword,
